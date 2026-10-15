@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 247 244 236; --surf: 255 253 248; --ink: 14 38 32; --mute: 84 104 96; --line: 224 220 205;
+  --accent: 15 92 77; --accent2: 150 112 28; --on: 255 255 255;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:root.dark {
+  --bg: 11 31 26; --surf: 17 43 36; --ink: 240 234 220; --mute: 160 178 168; --line: 36 66 57;
+  --accent: 214 170 82; --accent2: 240 216 152; --on: 11 31 26;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 90px; overflow-x: clip; }
+body { min-width: 320px; margin: 0; overflow-x: clip; background: rgb(var(--bg)); color: rgb(var(--ink)); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+*, *::before, *::after { box-sizing: border-box; }
+img, svg, video, canvas { max-width: 100%; }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 8px; }
+
+.grad { background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gridbg {
+  background-image: linear-gradient(rgb(var(--line) / .55) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--line) / .55) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 25%, transparent 75%);
+}
+.spot { position: relative; overflow: hidden; }
+.spot::before { content: ''; position: absolute; inset: 0; background: radial-gradient(320px circle at var(--x, 50%) var(--y, 0%), rgb(var(--accent) / .16), transparent 65%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.spot:hover::before { opacity: 1; }
+
+.card-reveal { opacity: 0; transform: translateY(-28px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1); }
+.card-reveal.card-revealed { opacity: 1; transform: translateY(0); }
+
+@keyframes floaty { 50% { transform: translateY(-12px); } } .floaty { animation: floaty 6s ease-in-out infinite; }
+@keyframes mq { to { transform: translateX(-50%); } } .marq { animation: mq 30s linear infinite; } .marq:hover { animation-play-state: paused; }
+@keyframes ping2 { 75%, 100% { transform: scale(2.2); opacity: 0; } } .ping2 { animation: ping2 1.8s cubic-bezier(0,0,.2,1) infinite; }
+@keyframes bl { 50% { opacity: 0; } }
+.caret { display: inline-block; width: 3px; height: .9em; background: rgb(var(--accent)); margin-left: 4px; vertical-align: -.08em; animation: bl 1s steps(2) infinite; }
+
+@media (prefers-reduced-motion: reduce) { .floaty, .marq, .ping2, .caret { animation: none; } html { scroll-behavior: auto; } }
+@media (hover: hover) and (pointer: fine) { body, a, button { cursor: none; } input, textarea { cursor: text; } }
