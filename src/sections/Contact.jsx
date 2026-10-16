@@ -6,7 +6,9 @@ import { CFG } from '../data/data'
 const WA_NUMBER = CFG.whatsapp.replace(/\D/g, '')
 
 const MESSAGES = {
-  ok: ['WhatsApp is opening. Just press send there.', 'text-accent2'],
+  sending: ['Sending your message...', 'text-mute'],
+  ok: ['Thank you! Your message has been sent. I will reply within a day.', 'text-accent2'],
+  fail: ['Message could not be sent. Please try again or email me directly.', 'text-red-500'],
 }
 
 export default function Contact() {
@@ -22,15 +24,31 @@ export default function Contact() {
     return e
   }
 
-  const submit = (ev) => {
+  const submit = async (ev) => {
     ev.preventDefault()
     const e = validate()
     setErrors(e)
-    if (Object.keys(e).length) return
-    const text = `Hi Maryam, I'm ${v.name}.\n\n${v.message}\n\nMy email: ${v.email}`
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
-    setStatus('ok')
-    setV({ name: '', email: '', message: '' })
+    if (Object.keys(e).length || status === 'sending') return
+    setStatus('sending')
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/' + CFG.email, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: v.name,
+          email: v.email,
+          message: v.message,
+          _subject: 'New message from ' + v.name,
+          _replyto: v.email,
+          _template: 'table',
+        }),
+      })
+      if (!res.ok) throw new Error('failed')
+      setStatus('ok')
+      setV({ name: '', email: '', message: '' })
+    } catch {
+      setStatus('fail')
+    }
   }
   const field = (k, label, area) => {
     const Tag = area ? 'textarea' : 'input'
@@ -61,8 +79,8 @@ export default function Contact() {
       <div className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:gap-12">
         <form onSubmit={submit} noValidate data-r className="min-w-0 space-y-5 rounded-3xl border border-line bg-surf p-4 sm:p-6 lg:p-8">
           {field('name', 'Name')}{field('email', 'Email')}{field('message', 'Message', true)}
-          <button type="submit" className="mag inline-flex min-h-[48px] items-center gap-2 rounded-full bg-ink px-7 text-sm font-semibold text-bg transition-colors hover:bg-accent hover:text-on">
-            <Send size={16} /> Send message
+          <button type="submit" disabled={status === 'sending'} className="mag inline-flex min-h-[48px] items-center gap-2 rounded-full bg-ink px-7 text-sm font-semibold text-bg transition-colors hover:bg-accent hover:text-on disabled:opacity-60">
+            <Send size={16} /> {status === 'sending' ? 'Sending...' : 'Send message'}
           </button>
           <p aria-live="polite" className={`text-sm font-medium ${msg ? msg[1] : ''}`}>{msg ? msg[0] : ''}</p>
         </form>

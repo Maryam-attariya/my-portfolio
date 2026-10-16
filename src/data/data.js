@@ -111,13 +111,13 @@ export const PROJECTS = [
     code: 'https://github.com/Maryam-attariya/Wood-work',
   },
   {
-    n: 'Multi-Step Form',
-    d: 'An interactive multi-step form with personal details, address fields and a visual progress indicator.',
-    cat: ['JavaScript', 'HTML', 'CSS'],
-    image: '/projects/multistep.webp',
-    g: ['#4338CA', '#A5B4FC'],
-    live: 'https://multi-step-form-sooty-tau.vercel.app/',
-    code: 'https://github.com/Maryam-attariya/Multi-step-form',
+    n: 'SMIT Attendance Portal',
+    d: 'A student attendance portal with a dashboard to view and track attendance records.',
+    cat: ['HTML', 'CSS', 'JavaScript','Firebase'],
+    image: '/projects/smit.webp',
+    g: ['#0F766E', '#5EEAD4'],
+    live: 'https://smit-student-portal-zeta.vercel.app/dashboard.html',
+    code: 'https://github.com/Maryam-attariya/smit-student-portal', 
   },
   {
     n: 'React Currency Converter',
@@ -126,16 +126,7 @@ export const PROJECTS = [
     image: '/projects/currency.webp',
     g: ['#075985', '#38BDF8'],
     live: 'https://react-currency-converter-liard.vercel.app/',
-    code: 'YOUR_CURRENCY_CONVERTER_GITHUB_REPOSITORY_URL', // <- asli GitHub link yahan lagayein
-  },
-  {
-    n: 'Weather App',
-    d: 'A weather application featuring city search and weather information.',
-    cat: ['JavaScript', 'API'],
-    image: '/projects/weather.webp',
-    g: ['#854D0E', '#FACC15'],
-    live: 'https://wheather-app-sigma-gray.vercel.app/',
-    code: 'https://github.com/Maryam-attariya/Wheather-App',
+    code: 'https://github.com/Maryam-attariya/React-currency-converter', 
   },
 ]
 
