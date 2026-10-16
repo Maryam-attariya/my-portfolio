@@ -55,7 +55,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="h-card relative mx-auto w-full min-w-0 max-w-sm">
+        <div className="h-card relative mx-auto w-full min-w-0 max-w-xs">
           <div className="floaty relative">
             <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-accent/30 to-accent2/25 blur-2xl" aria-hidden="true" />
             <div className="relative overflow-hidden rounded-3xl border border-line bg-surf/90 shadow-2xl">
