@@ -152,6 +152,13 @@ export const CERTIFICATES = [
     image: '/certificates/certificate html.PNG',
     link: '/certificates/certificate html.PNG',
   },
+   {
+    n: 'HTML CSS JS INTERNSHIP INTERN',
+    issuer: 'INTERNEE.PK',
+    date: 'Nov 2026',
+    image: '/certificates/internee.png',
+    link: '/certificates/internee.png',
+  },
   {
     n: 'Frontend Development Internship',
     issuer: 'CodeAlpha',
